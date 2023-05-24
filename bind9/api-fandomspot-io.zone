@@ -1,0 +1,24 @@
+$TTL 2d
+
+$ORIGIN api.fandomspot.io.
+
+@                   IN  SOA api.user.fandomspot.io. api.moderation.fandomspot.io (
+                        2022122800
+                        12h
+                        15m
+                        3w
+                        2h
+                    )
+
+                    IN  NS  api.user.fandomspot.io.
+
+api.user            IN  A   user-gateway-ip
+
+                    IN  NS  api.moderation.fandomspot.io.
+
+api.moderation      IN  A   moderation-gateway-ip
+
+; -- gateways   
+
+user-gateway        IN  A   user-gateway-ip
+moderation-gateway  IN  A   moderation-gateway-ip  
