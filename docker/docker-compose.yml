@@ -1,0 +1,56 @@
+version: "3.8"
+services:
+  
+  # dns
+  bind9:
+    image: internetsystemsconsortium/bind9:9.19
+  
+  # gateways
+  user-gateway:
+    image: imageName
+    depends_on:
+      - bind9
+  moderation-gateway:
+    image: imageName
+    depends_on:
+      - bind9
+  
+  # databases
+  fandoms-users-db:
+    image: postgres:13.11
+    env_file:
+      - "/env/db/fandoms-db.env"
+  fandomspot-users-db:
+    image: postgres:13.11
+    env_file:
+      - "/env/db/fandomspot-users-db.env"
+  
+  # infrastructure
+  # cfg-server
+  config-server:
+    image: imageName
+  # eurekd
+  eureka-server:
+    image: imageName
+    depends_on:
+      - config-server
+  # monitor
+
+
+  # microservices
+  fandoms-microservice:
+    image: imageName
+    depends_on:
+      - config-server
+      - eureka-server
+
+  # frontend
+  
+
+volumes:
+  # db
+  fandomspot-users-db-volumes:
+  fandoms-users-db-volumes:
+
+networks:
+  fandomspot_network:
