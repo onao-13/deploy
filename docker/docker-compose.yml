@@ -36,6 +36,31 @@ services:
       - config-server
   # monitor
 
+  # message-broker
+  zookeeper:
+    image: confluentinc/cp-zookeeper:7.4.0
+    env_file:
+      - "/env/message-broker/zookeeper.env"
+    ports:
+      - 22181:2181
+
+  kafka:
+    depends_on:
+      - zookeeper
+    image: confluentinc/cp-kafka:7.4.0
+    ports:
+      - 29092:29092
+    env_file:
+      - "/env/message-broker/kafka.env"
+
+  kafka-ui:
+    image: provectuslabs/kafka-ui
+    ports:
+      - 8090:8080
+    restart: always
+    env_file:
+      - "/env/message-broker/kafka-ui.env"
+
 
   # microservices
   fandoms-microservice:
